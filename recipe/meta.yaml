@@ -1,28 +1,22 @@
-{%set name = "hive-thrift-py" %}
 {%set version = "0.0.1" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "c0b2554527beb040c8009b7af9f363f0498df2f985746c8dfd6cc41fdce3d6e1" %}
 
 package:
-  name: {{ name }}
+  name: hive-thrift-py
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash_val }}
-  patches:
-    - setup.patch  # [win]
+  url: https://pypi.io/packages/source/h/hive-thrift-py/hive-thrift-py-{{ version }}.tar.gz
+  sha256: c0b2554527beb040c8009b7af9f363f0498df2f985746c8dfd6cc41fdce3d6e1
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
-  build:
+  host:
     - python
-    - setuptools
-
+    - pip
   run:
     - python
 
